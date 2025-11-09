@@ -1,0 +1,93 @@
+
+# .gitignore for Spring Boot / Maven project
+# Generated: entradas comunes para Java, Maven, Spring Boot, IDEs y SO
+
+# Build output
+target/
+
+# Maven wrapper (comentar/ajustar si prefieres versionar el wrapper jar)
+# Si quieres versionar el wrapper, quita la línea siguiente
+.mvn/wrapper/maven-wrapper.jar
+
+# Allow build folders inside nested module source trees (if present)
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+# Compiled class files
+**/*.class
+
+# Package files
+*.jar
+*.war
+*.ear
+
+# Logs and temp files
+*.log
+hs_err_pid*
+*.tmp
+*.swp
+*~
+*.bak
+*.orig
+
+# Maven specific
+dependency-reduced-pom.xml
+release.properties
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+
+# IDEs
+
+## IntelliJ IDEA
+/.idea/
+*.iws
+*.iml
+*.ipr
+out/
+
+## Eclipse / STS
+.settings/
+.classpath
+.project
+.factorypath
+.apt_generated
+.springBeans
+.sts4-cache
+
+## NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+## VS Code
+.vscode/
+
+# OS generated files
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Temporary files created by editors
+*.iml
+*.class
+
+# Test build directories (some plugins may create these)
+test-classes/
+
+# Other
+*.class
+*.cache
+.idea_modules/
+
+# Optional: environment files containing secrets (uncomment if used locally)
+# .env
+# application-local.properties
+
+# Keep project documentation tracked (no ignore): README/HELP
+# Ejemplo: si no quieres trackear HELP.md, añade HELP.md aquí. Actualmente se mantiene en el repo.
