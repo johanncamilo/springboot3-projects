@@ -1,0 +1,15 @@
+# 1. Obtener todos los productos
+GET http://localhost:8080/api/products
+
+###
+
+POST http://localhost:8080/api/var
+Content-Type: application/json
+
+{
+  "name": "pinguino",
+  "lastname": "tux",
+  "email": "pinguino@tux.com"
+}
+
+###
