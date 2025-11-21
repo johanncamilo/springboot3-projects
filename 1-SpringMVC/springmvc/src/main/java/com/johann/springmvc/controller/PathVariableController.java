@@ -10,6 +10,7 @@ import com.johann.springmvc.model.dto.UserDto;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +19,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RestController
 @RequestMapping("/api/var")
 public class PathVariableController {
+
+    // *INYECCIÓN DE VALORES de application.properties con @Value
+
+    @Value("${config.username}")
+    private String username;
+
+    @Value("${config.password}")
+    private String password;
+
+    @Value("${config.listOfValues}")
+    private String[] listOfValues;
+
+    @Value("${config.code}")
+    private String[] code;
 
     @GetMapping("una/{message}")
     public ParamDto getBaz(@PathVariable(name = "message") String messageOtro) {
@@ -44,6 +59,26 @@ public class PathVariableController {
         dto.setFullname(user.getName() + " " + user.getLastname());
         dto.setTitle("Usuario con correo: " + user.getEmail());
         return dto;
+    }
+
+    // * INYECCIÓN DE @Value como parametro
+    @GetMapping("tagvalues")
+    public Map<String, Object> getTagValues(@Value("${config.message}") String message) {
+
+        Map<String, Object> json = new HashMap<>();
+        json.put("username", username);
+        json.put("code", code);
+        json.put("message", message);
+        // json.put("message2", environment.getProperty("config.message"));
+        // json.put("code2", code2);
+        // json.put("listOfValues", listOfValues);
+        // json.put("valueString", valueString);
+        // json.put("valueList", valueList);
+        // json.put("valueMap", valuesMap);
+        // json.put("product", product);
+        // json.put("price", price);
+        return json;
+
     }
 
 }
