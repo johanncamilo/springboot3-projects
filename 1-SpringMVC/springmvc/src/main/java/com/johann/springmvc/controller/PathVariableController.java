@@ -8,6 +8,7 @@ import com.johann.springmvc.model.dto.ParamDto;
 import com.johann.springmvc.model.dto.UserDto;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -29,10 +30,28 @@ public class PathVariableController {
     private String password;
 
     @Value("${config.listOfValues}")
-    private String[] listOfValues;
+    private List<String> listOfValues;
 
     @Value("${config.code}")
-    private String[] code;
+    private String code;
+
+    /**
+     * * SpEL (Spring Expression Language)
+     * Pemite evaluar expresiones dinámicas dentro del contexto de Spring
+     * (beans, propiedades, colecciones, llamadas a métodos)
+     * transforma valores en tiempo de arranque
+     * todo lo que quiero manipular va dentro de gato y llaves dentro de doble comillas: "#{}" 
+     * y las otras expresiones y valores se anidan con '' sencillas
+     * ? ESTE EJEMPLO ES UNA MANIPULACIÓN SEMÁNTICA MANUAL DE INYECCIÓN DE UNA LISTA
+     * EN EL CONTROLLER
+     * \\s* regex para sanitizar espacios, los omite
+     */
+    @Value("#{'${config.listOfValues}'.toUpperCase().split(',\\s*')}")
+    private List<String> SpELmanualValueList;
+
+    // otro uso de SpEL
+    @Value("#{'${config.listOfValues}'.toUpperCase()}")
+    private String valueString;
 
     @GetMapping("una/{message}")
     public ParamDto getBaz(@PathVariable(name = "message") String messageOtro) {
@@ -71,9 +90,9 @@ public class PathVariableController {
         json.put("message", message);
         // json.put("message2", environment.getProperty("config.message"));
         // json.put("code2", code2);
-        // json.put("listOfValues", listOfValues);
-        // json.put("valueString", valueString);
-        // json.put("valueList", valueList);
+        json.put("listOfValues", listOfValues);
+        json.put("valueString", valueString);
+        json.put("SpELmanualValueList", SpELmanualValueList);
         // json.put("valueMap", valuesMap);
         // json.put("product", product);
         // json.put("price", price);

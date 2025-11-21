@@ -1,8 +1,10 @@
-# 1. Obtener los valores inyectados en el controlador
+# 1. Obtener los valores @Value inyectados en el controlador
 GET http://localhost:8080/api/var/tagvalues
 
 ###
 
+# 2. Enviar un objeto JSON para mapearlo a una clase Java usando @RequestBody
+# Retorna un dto en formato JSON
 POST http://localhost:8080/api/var
 Content-Type: application/json
 
