@@ -11,7 +11,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +23,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequestMapping("/api/var")
 public class PathVariableController {
 
-    // * VALORES INYECTADOS desde values.properties con @Value
+    /**
+     * * @Value
+     * Inyección de configuraciones
+     * valores inyectados desde values.properties con @Value
+     */
 
     @Value("${config.username}")
     private String username;
@@ -63,6 +69,15 @@ public class PathVariableController {
     private Long price;
 
 
+    /**
+     * * ENVIRONMENT
+     * Environment es un interface que representa el entorno
+     * @Autowired busca un componente Spring almacenado en su contenedor
+     * Cuando lo encuentra lo inyecta por su tipo de dat 
+     */
+    @Autowired
+    private Environment env; 
+
     // ** ENDPOINTS **
 
     @GetMapping("una/{message}")
@@ -100,8 +115,11 @@ public class PathVariableController {
         json.put("username", username);
         json.put("code", code);
         json.put("message", message);
-        // json.put("message2", environment.getProperty("config.message"));
-        // json.put("code2", code2);
+        json.put("env_message", env.getProperty("config.message"));
+        json.put("env_code", Integer.valueOf(env.getProperty("config.code")));
+        // devuelve valor según el targetType que se le especifique ⬇
+        json.put("targetType_env_code", env.getProperty("config.code", Long.class));
+
         json.put("listOfValues", listOfValues);
         json.put("valueString", valueString);
         json.put("SpELmanualValueList", SpELmanualValueList);
