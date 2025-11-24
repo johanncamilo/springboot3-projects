@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequestMapping("/api/var")
 public class PathVariableController {
 
-    // *INYECCIÓN DE VALORES de application.properties con @Value
+    // * VALORES INYECTADOS desde values.properties con @Value
 
     @Value("${config.username}")
     private String username;
@@ -52,6 +52,18 @@ public class PathVariableController {
     // otro uso de SpEL
     @Value("#{'${config.listOfValues}'.toUpperCase()}")
     private String valueString;
+
+    @Value("#{${config.valuesMap}}")
+    private Map<String, Object> valuesMap;
+
+    @Value("#{${config.valuesMap}.product}")
+    private String product;
+
+    @Value("#{${config.valuesMap}.price}")
+    private Long price;
+
+
+    // ** ENDPOINTS **
 
     @GetMapping("una/{message}")
     public ParamDto getBaz(@PathVariable(name = "message") String messageOtro) {
@@ -93,9 +105,9 @@ public class PathVariableController {
         json.put("listOfValues", listOfValues);
         json.put("valueString", valueString);
         json.put("SpELmanualValueList", SpELmanualValueList);
-        // json.put("valueMap", valuesMap);
-        // json.put("product", product);
-        // json.put("price", price);
+        json.put("valueMap", valuesMap);
+        json.put("product", product);
+        json.put("price", price);
         return json;
 
     }
